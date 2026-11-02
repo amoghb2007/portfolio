@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amogh Bhardwaj — AI/ML Developer & Athlete</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+          colors: {
+            obsidian: '#0a0a0c',
+            surface: '#111114',
+            card: '#16161a',
+            border: '#1e1e24',
+            neon: { indigo: '#6366f1', cyan: '#22d3ee', emerald: '#10b981', purple: '#a855f7' },
+          },
+          animation: {
+            'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'shimmer': 'shimmer 2.5s linear infinite',
+            'spin-slow': 'spin 12s linear infinite',
+            'fade-in-up': 'fade-in-up 0.7s ease-out forwards',
+            'scale-in': 'scale-in 0.5s ease-out forwards',
+            'slide-right': 'slide-right 0.6s ease-out forwards',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* === Base === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0c; color: #e4e4e7; font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
+    ::selection { background: rgba(99,102,241,0.35); color: #fff; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0c; }
+    ::-webkit-scrollbar-thumb { background: #2a2a32; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+
+    /* === Keyframes === */
+    @keyframes glow-pulse { 0%,100% { box-shadow: 0 0 20px rgba(99,102,241,0.15); } 50% { box-shadow: 0 0 40px rgba(99,102,241,0.3), 0 0 80px rgba(99,102,241,0.1); } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scale-in { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+    @keyframes slide-right { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes typewriter-blink { 0%,100% { border-color: #6366f1; } 50% { border-color: transparent; } }
+    @keyframes orbit { from { transform: rotate(0deg) translateX(140px) rotate(0deg); } to { transform: rotate(360deg) translateX(140px) rotate(-360deg); } }
+    @keyframes particle-float { 0%,100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.4; } 25% { transform: translateY(-30px) translateX(15px) scale(1.2); opacity: 0.7; } 50% { transform: translateY(-10px) translateX(-10px) scale(0.8); opacity: 0.3; } 75% { transform: translateY(-40px) translateX(20px) scale(1.1); opacity: 0.6; } }
+    @keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes ring-pulse { 0%,100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.08); opacity: 0.6; } }
+
+    /* === Glassmorphism Utility === */
+    .glass { background: rgba(22,22,26,0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.06); }
+    .glass-strong { background: rgba(22,22,26,0.8); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.08); }
+
+    /* === Typewriter Cursor === */
+    .typewriter-cursor { border-right: 3px solid #6366f1; animation: typewriter-blink 0.8s step-end infinite; padding-right: 2px; }
+
+    /* === Scroll-reveal base state === */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-left.active { opacity: 1; transform: translateX(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.85); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+    .reveal-scale.active { opacity: 1; transform: scale(1); }
+
+    /* === Glow borders === */
+    .glow-border { position: relative; }
+    .glow-border::before { content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(34,211,238,0.2), rgba(16,185,129,0.3)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+    .glow-border:hover::before { opacity: 1; }
+
+    /* === Mouse Glow === */
+    #mouse-glow { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.07) 0%, rgba(99,102,241,0.03) 30%, transparent 70%); pointer-events: none; z-index: 1; transform: translate(-50%, -50%); transition: left 0.15s ease-out, top 0.15s ease-out; will-change: left, top; }
+
+    /* === Noise overlay === */
+    .noise-overlay { position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+    /* === Progress bar fill animation === */
+    .progress-fill { transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0; }
+    .progress-fill.filled { /* width set inline */ }
+
+    /* === Nav active indicator === */
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 2px; background: #6366f1; transform: translateX(-50%); transition: width 0.3s ease; border-radius: 99px; }
+    .nav-link:hover::after, .nav-link.active::after { width: 60%; }
+
+    /* === Hamburger animation === */
+    .hamburger span { display: block; width: 24px; height: 2px; background: #e4e4e7; transition: all 0.3s ease; border-radius: 2px; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* === Shimmer text === */
+    .shimmer-text { background: linear-gradient(110deg, #6366f1 20%, #22d3ee 40%, #10b981 60%, #6366f1 80%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 3s linear infinite; }
+
+    /* === Timeline === */
+    .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent, #6366f1, #22d3ee, transparent); transform: translateX(-50%); }
+    @media (max-width: 768px) { .timeline-line { left: 20px; } }
+
+    /* === Card hover lift === */
+    .card-hover { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; }
+    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(99,102,241,0.12), 0 8px 24px rgba(0,0,0,0.4); }
+
+    /* === Button glow === */
+    .btn-glow { position: relative; overflow: hidden; }
+    .btn-glow::before { content: ''; position: absolute; inset: -2px; border-radius: inherit; background: linear-gradient(135deg, #6366f1, #22d3ee, #10b981); opacity: 0; transition: opacity 0.4s ease; z-index: -1; filter: blur(8px); }
+    .btn-glow:hover::before { opacity: 0.6; }
+
+    /* === Avatar geometric === */
+    .avatar-container { position: relative; width: 240px; height: 240px; }
+    .avatar-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid; animation: ring-pulse 4s ease-in-out infinite; }
+
+    /* === Project card image shimmer === */
+    .project-img-shimmer { background: linear-gradient(110deg, #16161a 30%, #1e1e24 50%, #16161a 70%); background-size: 200% 100%; animation: shimmer 2s linear infinite; }
+
+    /* === Hobby icon bounce === */
+    .hobby-icon { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+    .hobby-icon:hover { transform: scale(1.15) rotate(-5deg); }
+
+    /* Section padding helper */
+    .section-py { padding-top: 6rem; padding-bottom: 6rem; }
+    @media (min-width: 768px) { .section-py { padding-top: 8rem; padding-bottom: 8rem; } }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Noise Overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- Mouse Glow -->
+  <div id="mouse-glow"></div>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-2 group">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-neon-indigo to-neon-cyan flex items-center justify-center font-bold text-white text-sm group-hover:shadow-lg group-hover:shadow-indigo-500/25 transition-shadow duration-300">AB</div>
+          <span class="font-semibold text-white tracking-tight hidden sm:inline">amogh<span class="text-neon-indigo">.dev</span></span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#about" class="nav-link text-sm text-zinc-400 hover:text-white transition-colors">About</a>
+          <a href="#skills" class="nav-link text-sm text-zinc-400 hover:text-white transition-colors">Skills</a>
+          <a href="#projects" class="nav-link text-sm text-zinc-400 hover:text-white transition-colors">Projects</a>
+          <a href="#journey" class="nav-link text-sm text-zinc-400 hover:text-white transition-colors">Journey</a>
+          <a href="#edge" class="nav-link text-sm text-zinc-400 hover:text-white transition-colors">Edge</a>
+          <a href="#contact" class="nav-link px-5 py-2 rounded-full text-sm font-medium text-white bg-gradient-to-r from-neon-indigo to-neon-purple hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-300">Contact</a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="hamburger-btn" class="hamburger md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden glass-strong overflow-hidden transition-all duration-500 max-h-0">
+      <div class="px-6 py-6 flex flex-col gap-4">
+        <a href="#about" class="mobile-link text-zinc-300 hover:text-white transition-colors py-2 border-b border-white/5">About</a>
+        <a href="#skills" class="mobile-link text-zinc-300 hover:text-white transition-colors py-2 border-b border-white/5">Skills</a>
+        <a href="#projects" class="mobile-link text-zinc-300 hover:text-white transition-colors py-2 border-b border-white/5">Projects</a>
+        <a href="#journey" class="mobile-link text-zinc-300 hover:text-white transition-colors py-2 border-b border-white/5">Journey</a>
+        <a href="#edge" class="mobile-link text-zinc-300 hover:text-white transition-colors py-2 border-b border-white/5">Edge</a>
+        <a href="#contact" class="mobile-link inline-flex justify-center px-5 py-2.5 rounded-full text-sm font-medium text-white bg-gradient-to-r from-neon-indigo to-neon-purple mt-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Glow Orbs -->
+    <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-cyan-500/8 rounded-full blur-[100px] animate-pulse" style="animation-delay: 1.5s;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-emerald-500/5 rounded-full blur-[80px] animate-pulse" style="animation-delay: 3s;"></div>
+
+    <!-- Grid pattern -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 pt-24 pb-12">
+      <!-- Text Content -->
+      <div class="flex-1 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-neon-cyan font-mono mb-6 tracking-wider">
+          <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+          AVAILABLE FOR COLLABORATIONS
+        </div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4">
+          Hi, I'm <span class="shimmer-text">Amogh</span>
+        </h1>
+        <div class="h-10 md:h-12 mb-6 flex items-center justify-center lg:justify-start">
+          <span id="typewriter" class="typewriter-cursor text-lg md:text-2xl text-zinc-300 font-light"></span>
+        </div>
+        <p class="text-zinc-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+          First-year B.Tech CS-AI student at <span class="text-neon-indigo font-medium">Rishihood University</span>, 
+          fusing the worlds of artificial intelligence, full-stack development, and athletic discipline 
+          into something extraordinary.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <a href="#projects" class="btn-glow inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-neon-indigo to-neon-purple text-white font-semibold text-sm hover:scale-105 transition-transform duration-300 shadow-lg shadow-indigo-500/20">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            Explore Work
+          </a>
+          <a href="#contact" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full glass text-zinc-300 font-semibold text-sm hover:text-white hover:border-white/20 transition-all duration-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            Get in Touch
+          </a>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="flex items-center gap-8 mt-10 justify-center lg:justify-start">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-white">7+</div>
+            <div class="text-xs text-zinc-500 mt-0.5">Tech Skills</div>
+          </div>
+          <div class="w-px h-10 bg-white/10"></div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-white">5+</div>
+            <div class="text-xs text-zinc-500 mt-0.5">Projects</div>
+          </div>
+          <div class="w-px h-10 bg-white/10"></div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-white">∞</div>
+            <div class="text-xs text-zinc-500 mt-0.5">Ambition</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Geometric Avatar -->
+      <div class="flex-shrink-0 animate-float">
+        <div class="avatar-container">
+          <!-- Orbiting rings -->
+          <div class="avatar-ring border-indigo-500/30" style="animation-delay: 0s;"></div>
+          <div class="avatar-ring border-cyan-400/20" style="inset: -16px; animation-delay: 1.3s;"></div>
+          <div class="avatar-ring border-emerald-400/15" style="inset: -32px; animation-delay: 2.6s;"></div>
+          <!-- Inner avatar shape -->
+          <div class="absolute inset-4 rounded-full bg-gradient-to-br from-surface via-card to-surface border border-white/10 flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/20 via-transparent to-cyan-500/10"></div>
+            <!-- Geometric face pattern -->
+            <svg class="w-28 h-28 text-indigo-400/70 relative z-10" viewBox="0 0 100 100" fill="none">
+              <circle cx="50" cy="35" r="20" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+              <path d="M25 85 C25 62 75 62 75 85" stroke="currentColor" stroke-width="1.5" opacity="0.6" fill="none"/>
+              <circle cx="42" cy="32" r="2" fill="currentColor" opacity="0.4"/>
+              <circle cx="58" cy="32" r="2" fill="currentColor" opacity="0.4"/>
+              <path d="M45 40 Q50 44 55 40" stroke="currentColor" stroke-width="1" opacity="0.3" fill="none"/>
+            </svg>
+          </div>
+          <!-- Orbiting particle dots -->
+          <div class="absolute inset-0" style="animation: spin 20s linear infinite;">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-indigo-400 shadow-lg shadow-indigo-400/50"></div>
+          </div>
+          <div class="absolute inset-0" style="animation: spin 28s linear infinite reverse;">
+            <div class="absolute bottom-2 right-4 w-2 h-2 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50"></div>
+          </div>
+          <div class="absolute inset-0" style="animation: spin 35s linear infinite;">
+            <div class="absolute top-8 left-0 w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500 animate-bounce">
+      <span class="text-xs tracking-widest font-mono">SCROLL</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT SECTION ==================== -->
+  <section id="about" class="section-py relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-indigo/30 to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-16 reveal">
+        <span class="text-neon-indigo font-mono text-sm tracking-widest uppercase">// About Me</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-white mt-3">Where <span class="shimmer-text">Code</span> Meets <span class="shimmer-text">Character</span></h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left: Bio -->
+        <div class="reveal-left space-y-6">
+          <div class="glass rounded-2xl p-8 glow-border card-hover">
+            <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-3">
+              <span class="w-10 h-10 rounded-lg bg-indigo-500/15 flex items-center justify-center text-neon-indigo">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+              </span>
+              The Mindset
+            </h3>
+            <p class="text-zinc-400 leading-relaxed">
+              I believe the <span class="text-white font-medium">same discipline that keeps you training at 6 AM</span> 
+              is what makes you debug code at 2 AM without flinching. My journey bridges two worlds — the 
+              structured rigor of <span class="text-neon-cyan">artificial intelligence</span> and the raw, 
+              unscripted energy of the <span class="text-neon-emerald">gym and the ring</span>.
+            </p>
+          </div>
+
+          <div class="glass rounded-2xl p-8 glow-border card-hover">
+            <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-3">
+              <span class="w-10 h-10 rounded-lg bg-cyan-500/15 flex items-center justify-center text-neon-cyan">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </span>
+              The Mission
+            </h3>
+            <p class="text-zinc-400 leading-relaxed">
+              Currently deep-diving into <span class="text-white font-medium">Machine Learning & Deep Learning</span>, 
+              while building full-stack web and mobile apps that solve real problems. Every line of code I write 
+              is fueled by curiosity and the competitive fire that boxing and gaming have instilled in me.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Visual Quote Card -->
+        <div class="reveal-scale">
+          <div class="glass rounded-3xl p-10 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-indigo-600/10 to-transparent rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-cyan-500/10 to-transparent rounded-full blur-2xl"></div>
+            <div class="relative z-10">
+              <svg class="w-12 h-12 text-indigo-500/30 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              <p class="text-xl md:text-2xl text-white font-light leading-relaxed italic mb-6">
+                Train like an athlete. Think like an engineer. Build like an artist.
+              </p>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-indigo to-neon-cyan flex items-center justify-center text-white font-bold text-sm">A</div>
+                <div>
+                  <div class="text-white font-medium text-sm">Amogh Bhardwaj</div>
+                  <div class="text-zinc-500 text-xs">CS-AI @ Rishihood University</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Facts -->
+          <div class="grid grid-cols-3 gap-4 mt-6">
+            <div class="glass rounded-xl p-4 text-center card-hover">
+              <div class="text-2xl mb-1">🧠</div>
+              <div class="text-xs text-zinc-500">AI/ML Focus</div>
+            </div>
+            <div class="glass rounded-xl p-4 text-center card-hover">
+              <div class="text-2xl mb-1">🥊</div>
+              <div class="text-xs text-zinc-500">Fighter Spirit</div>
+            </div>
+            <div class="glass rounded-xl p-4 text-center card-hover">
+              <div class="text-2xl mb-1">🎮</div>
+              <div class="text-xs text-zinc-500">Strategic Gamer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS SECTION ==================== -->
+  <section id="skills" class="section-py relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <span class="text-neon-cyan font-mono text-sm tracking-widest uppercase">// Skills & Expertise</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-white mt-3">My <span class="shimmer-text">Arsenal</span></h2>
+        <p class="text-zinc-500 mt-4 max-w-lg mx-auto">Technologies and domains I've been sharpening through projects, coursework, and relentless curiosity.</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
+        <button data-filter="all" class="skill-filter active px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-neon-indigo/20 text-neon-indigo border border-neon-indigo/30">All</button>
+        <button data-filter="lang" class="skill-filter px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 glass text-zinc-400 hover:text-white">Languages</button>
+        <button data-filter="aiml" class="skill-filter px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 glass text-zinc-400 hover:text-white">AI / ML</button>
+        <button data-filter="dev" class="skill-filter px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 glass text-zinc-400 hover:text-white">Web / App Dev</button>
+      </div>
+
+      <!-- Skills Grid -->
+      <div id="skills-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- C++ -->
+        <div class="skill-card glass rounded-2xl p-6 glow-border card-hover reveal" data-category="lang">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center">
+              <span class="text-blue-400 font-mono font-bold text-lg">C++</span>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold">C++</h4>
+              <span class="text-xs text-zinc-500">Programming Language</span>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full" data-width="85%"></div>
+          </div>
+          <div class="flex justify-between mt-2 text-xs text-zinc-500">
+            <span>DSA & Competitive</span><span class="text-blue-400">85%</span>
+          </div>
+        </div>
+
+        <!-- Python -->
+        <div class="skill-card glass rounded-2xl p-6 glow-border card-hover reveal" data-category="lang" style="transition-delay: 0.1s;">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-yellow-500/15 flex items-center justify-center">
+              <span class="text-yellow-400 text-2xl">🐍</span>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold">Python</h4>
+              <span class="text-xs text-zinc-500">Programming Language</span>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-full" data-width="90%"></div>
+          </div>
+          <div class="flex justify-between mt-2 text-xs text-zinc-500">
+            <span>AI/ML & Scripting</span><span class="text-yellow-400">90%</span>
+          </div>
+        </div>
+
+        <!-- Java -->
+        <div class="skill-card glass rounded-2xl p-6 glow-border card-hover reveal" data-category="lang" style="transition-delay: 0.2s;">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-orange-500/15 flex items-center justify-center">
+              <span class="text-orange-400 text-2xl">☕</span>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold">Java</h4>
+              <span class="text-xs text-zinc-500">Programming Language</span>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-orange-500 to-red-400 rounded-full" data-width="75%"></div>
+          </div>
+          <div class="flex justify-between mt-2 text-xs text-zinc-500">
+            <span>OOP & App Dev</span><span class="text-orange-400">75%</span>
+          </div>
+        </div>
+
+        <!-- Machine Learning -->
+        <div class="skill-card glass rounded-2xl p-6 glow-border card-hover reveal" data-category="aiml">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-indigo-500/15 flex items-center justify-center">
+              <span class="text-neon-indigo text-2xl">🧠</span>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold">Machine Learning</h4>
+              <span class="text-xs text-zinc-500">AI / ML</span>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" data-width="80%"></div>
+          </div>
+          <div class="flex justify-between mt-2 text-xs text-zinc-500">
+            <span>Scikit-learn, Models</span><span class="text-indigo-400">80%</span>
+          </div>
+        </div>
+
+        <!-- Deep Learning -->
+        <div class="skill-card glass rounded-2xl p-6 glow-border card-hover reveal" data-category="aiml" style="transition-delay: 0.1s;">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/15 flex items-center justify-center">
+              <span class="text-purple-400 text-2xl">⚡</span>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold">Deep Learning</h4>
+              <span class="text-xs text-zinc-500">AI / ML</span>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" data-width="70%"></div>
+          </div>
+          <div class="flex justify-between mt-2 text-xs text-zinc-500">
+            <span>TensorFlow, Neural Nets</span><span class="text-purple-400">70%</span>
+          </div>
+        </div>
+
+        <!-- Web Development -->
+        <div class="skill-card glass rounded-2xl p-6 glow-border card-hover reveal" data-category="dev" style="transition-delay: 0.2s;">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/15 flex items-center justify-center">
+              <span class="text-neon-cyan text-2xl">🌐</span>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold">Web Development</h4>
+              <span class="text-xs text-zinc-500">Full-Stack</span>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-cyan-500 to-teal-400 rounded-full" data-width="82%"></div>
+          </div>
+          <div class="flex justify-between mt-2 text-xs text-zinc-500">
+            <span>HTML, CSS, JS, React</span><span class="text-cyan-400">82%</span>
+          </div>
+        </div>
+
+        <!-- App Development -->
+        <div class="skill-card glass rounded-2xl p-6 glow-border card-hover reveal" data-category="dev">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/15 flex items-center justify-center">
+              <span class="text-neon-emerald text-2xl">📱</span>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold">App Development</h4>
+              <span class="text-xs text-zinc-500">Mobile</span>
+            </div>
+          </div>
+          <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+            <div class="progress-fill h-full bg-gradient-to-r from-emerald-500 to-green-400 rounded-full" data-width="72%"></div>
+          </div>
+          <div class="flex justify-between mt-2 text-xs text-zinc-500">
+            <span>Flutter, React Native</span><span class="text-emerald-400">72%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS SECTION ==================== -->
+  <section id="projects" class="section-py relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <span class="text-neon-emerald font-mono text-sm tracking-widest uppercase">// Featured Projects</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-white mt-3">Built With <span class="shimmer-text">Purpose</span></h2>
+        <p class="text-zinc-500 mt-4 max-w-lg mx-auto">A collection of projects that showcase my love for solving real problems with technology.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Project 1 -->
+        <div class="glass rounded-2xl overflow-hidden glow-border card-hover group reveal">
+          <div class="h-48 project-img-shimmer relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/30 to-purple-600/20 flex items-center justify-center">
+              <svg class="w-16 h-16 text-indigo-400/50 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-mono backdrop-blur-sm">AI/ML</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-neon-indigo transition-colors">Neural Style Transfer</h3>
+            <p class="text-zinc-500 text-sm mb-4 leading-relaxed">Deep learning model that applies artistic styles to photographs using convolutional neural networks and transfer learning.</p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="px-2.5 py-1 rounded-md bg-yellow-500/10 text-yellow-400 text-xs font-mono">Python</span>
+              <span class="px-2.5 py-1 rounded-md bg-orange-500/10 text-orange-400 text-xs font-mono">TensorFlow</span>
+              <span class="px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 text-xs font-mono">OpenCV</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-white text-sm transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Code
+              </a>
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-neon-indigo text-sm transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="glass rounded-2xl overflow-hidden glow-border card-hover group reveal" style="transition-delay: 0.15s;">
+          <div class="h-48 project-img-shimmer relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-cyan-600/30 to-teal-600/20 flex items-center justify-center">
+              <svg class="w-16 h-16 text-cyan-400/50 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-mono backdrop-blur-sm">App Dev</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-neon-cyan transition-colors">FitTrack Pro</h3>
+            <p class="text-zinc-500 text-sm mb-4 leading-relaxed">Cross-platform fitness tracking app with workout logging, progress analytics, and AI-powered exercise recommendations.</p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 text-xs font-mono">Flutter</span>
+              <span class="px-2.5 py-1 rounded-md bg-orange-500/10 text-orange-400 text-xs font-mono">Firebase</span>
+              <span class="px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 text-xs font-mono">Dart</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-white text-sm transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Code
+              </a>
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-neon-cyan text-sm transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="glass rounded-2xl overflow-hidden glow-border card-hover group reveal" style="transition-delay: 0.3s;">
+          <div class="h-48 project-img-shimmer relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-600/30 to-green-600/20 flex items-center justify-center">
+              <svg class="w-16 h-16 text-emerald-400/50 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono backdrop-blur-sm">Web Dev</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-neon-emerald transition-colors">CryptoVision Dashboard</h3>
+            <p class="text-zinc-500 text-sm mb-4 leading-relaxed">Real-time cryptocurrency analytics dashboard with price predictions using LSTM networks and interactive data visualizations.</p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 text-xs font-mono">React</span>
+              <span class="px-2.5 py-1 rounded-md bg-green-500/10 text-green-400 text-xs font-mono">Node.js</span>
+              <span class="px-2.5 py-1 rounded-md bg-yellow-500/10 text-yellow-400 text-xs font-mono">Python</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-white text-sm transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Code
+              </a>
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-neon-emerald text-sm transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="glass rounded-2xl overflow-hidden glow-border card-hover group reveal">
+          <div class="h-48 project-img-shimmer relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-pink-600/30 to-rose-600/20 flex items-center justify-center">
+              <svg class="w-16 h-16 text-pink-400/50 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            </div>
+            <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-mono backdrop-blur-sm">AI/ML</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-pink-400 transition-colors">Sentiment Analyzer</h3>
+            <p class="text-zinc-500 text-sm mb-4 leading-relaxed">NLP-powered sentiment analysis tool that processes social media feeds and generates emotion-mapped insights with visual reports.</p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="px-2.5 py-1 rounded-md bg-yellow-500/10 text-yellow-400 text-xs font-mono">Python</span>
+              <span class="px-2.5 py-1 rounded-md bg-red-500/10 text-red-400 text-xs font-mono">PyTorch</span>
+              <span class="px-2.5 py-1 rounded-md bg-green-500/10 text-green-400 text-xs font-mono">Flask</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-white text-sm transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Code
+              </a>
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-pink-400 text-sm transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="glass rounded-2xl overflow-hidden glow-border card-hover group reveal" style="transition-delay: 0.15s;">
+          <div class="h-48 project-img-shimmer relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-600/30 to-yellow-600/20 flex items-center justify-center">
+              <svg class="w-16 h-16 text-amber-400/50 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            </div>
+            <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-mono backdrop-blur-sm">Full-Stack</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-amber-400 transition-colors">ChatBot Arena</h3>
+            <p class="text-zinc-500 text-sm mb-4 leading-relaxed">Interactive chatbot platform with multiple AI personalities, supporting text and voice conversations with real-time responses.</p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 text-xs font-mono">JavaScript</span>
+              <span class="px-2.5 py-1 rounded-md bg-yellow-500/10 text-yellow-400 text-xs font-mono">Python</span>
+              <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs font-mono">WebSocket</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-white text-sm transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Code
+              </a>
+              <a href="#" class="flex items-center gap-1.5 text-zinc-400 hover:text-amber-400 text-sm transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- More Projects CTA -->
+        <div class="glass rounded-2xl glow-border card-hover flex flex-col items-center justify-center p-10 text-center reveal" style="transition-delay: 0.3s;">
+          <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
+          </div>
+          <h3 class="text-white font-semibold text-lg mb-2">More Coming Soon</h3>
+          <p class="text-zinc-500 text-sm mb-6">Always building, always learning. New projects are in the pipeline.</p>
+          <a href="https://github.com" target="_blank" class="inline-flex items-center gap-2 text-neon-indigo text-sm font-medium hover:underline">
+            View GitHub Profile
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== JOURNEY / EDUCATION TIMELINE ==================== -->
+  <section id="journey" class="section-py relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent"></div>
+    <div class="max-w-5xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <span class="text-neon-purple font-mono text-sm tracking-widest uppercase">// My Journey</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-white mt-3">The <span class="shimmer-text">Timeline</span></h2>
+      </div>
+
+      <div class="relative">
+        <!-- Timeline Line -->
+        <div class="timeline-line hidden md:block"></div>
+
+        <!-- Timeline Items -->
+        <div class="space-y-12">
+          <!-- Item 1: Current -->
+          <div class="relative flex flex-col md:flex-row items-center reveal">
+            <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+              <div class="glass rounded-2xl p-6 glow-border card-hover inline-block text-left md:text-right">
+                <div class="flex items-center gap-2 mb-3 md:justify-end">
+                  <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                  <span class="text-emerald-400 text-xs font-mono">PRESENT — 2025-2029</span>
+                </div>
+                <h3 class="text-white font-semibold text-lg mb-2">B.Tech — CS & AI</h3>
+                <p class="text-neon-indigo text-sm font-medium mb-2">Rishihood University, Sonipat</p>
+                <p class="text-zinc-500 text-sm leading-relaxed">Specialization in AI & Machine Learning. Diving deep into neural networks, data science, and full-stack application development while competing in coding contests.</p>
+                <div class="flex flex-wrap gap-2 mt-3 md:justify-end">
+                  <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 text-xs">AI/ML</span>
+                  <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 text-xs">DSA</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-xs">Full-Stack</span>
+                </div>
+              </div>
+            </div>
+            <!-- Center Dot -->
+            <div class="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-neon-indigo border-4 border-obsidian z-10 hidden md:block shadow-lg shadow-indigo-500/30"></div>
+            <div class="md:w-1/2 md:pl-12"></div>
+          </div>
+
+          <!-- Item 2: Learning Phase -->
+          <div class="relative flex flex-col md:flex-row items-center reveal">
+            <div class="md:w-1/2 md:pr-12"></div>
+            <div class="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-neon-cyan border-4 border-obsidian z-10 hidden md:block shadow-lg shadow-cyan-500/30"></div>
+            <div class="md:w-1/2 md:pl-12 mb-6 md:mb-0">
+              <div class="glass rounded-2xl p-6 glow-border card-hover inline-block text-left">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-zinc-500 text-xs font-mono">2023 — 2025</span>
+                </div>
+                <h3 class="text-white font-semibold text-lg mb-2">Self-Learning & Exploration</h3>
+                <p class="text-neon-cyan text-sm font-medium mb-2">Independent Study</p>
+                <p class="text-zinc-500 text-sm leading-relaxed">Discovered a passion for programming through competitive coding, open-source projects, and building apps. Mastered C++, Python, and Java fundamentals through hands-on project-based learning.</p>
+                <div class="flex flex-wrap gap-2 mt-3">
+                  <span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 text-xs">C++</span>
+                  <span class="px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400 text-xs">Python</span>
+                  <span class="px-2 py-0.5 rounded bg-orange-500/10 text-orange-400 text-xs">Java</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3: Origins -->
+          <div class="relative flex flex-col md:flex-row items-center reveal">
+            <div class="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+              <div class="glass rounded-2xl p-6 glow-border card-hover inline-block text-left md:text-right">
+                <div class="flex items-center gap-2 mb-3 md:justify-end">
+                  <span class="text-zinc-500 text-xs font-mono">ORIGIN STORY</span>
+                </div>
+                <h3 class="text-white font-semibold text-lg mb-2">The Spark ✨</h3>
+                <p class="text-neon-emerald text-sm font-medium mb-2">Where It All Began</p>
+                <p class="text-zinc-500 text-sm leading-relaxed">From modding games to writing first "Hello World" — the curiosity to understand how things work behind the screen turned into an obsession with building intelligent systems.</p>
+              </div>
+            </div>
+            <div class="absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-neon-emerald border-4 border-obsidian z-10 hidden md:block shadow-lg shadow-emerald-500/30"></div>
+            <div class="md:w-1/2 md:pl-12"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PERSONAL EDGE / HOBBIES ==================== -->
+  <section id="edge" class="section-py relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-indigo/30 to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <span class="text-neon-indigo font-mono text-sm tracking-widest uppercase">// The Personal Edge</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-white mt-3">Beyond the <span class="shimmer-text">Code</span></h2>
+        <p class="text-zinc-500 mt-4 max-w-xl mx-auto">How gaming, boxing, and gyming forge the focus, resilience, and strategic thinking I bring to every project.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Gaming -->
+        <div class="glass rounded-2xl p-8 glow-border card-hover reveal group text-center">
+          <div class="hobby-icon w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-purple-600/20 to-indigo-600/10 flex items-center justify-center mb-6 border border-purple-500/20 group-hover:border-purple-500/40 transition-colors">
+            <span class="text-4xl">🎮</span>
+          </div>
+          <h3 class="text-white font-semibold text-xl mb-3">Gaming</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+            Competitive gaming sharpens <span class="text-white font-medium">split-second decision-making</span>, strategic planning, and teamwork. Every match is a lesson in adapting under pressure.
+          </p>
+          <div class="flex flex-wrap justify-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs">Strategy</span>
+            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs">Focus</span>
+            <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs">Teamwork</span>
+          </div>
+        </div>
+
+        <!-- Boxing -->
+        <div class="glass rounded-2xl p-8 glow-border card-hover reveal group text-center" style="transition-delay: 0.15s;">
+          <div class="hobby-icon w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-red-600/20 to-orange-600/10 flex items-center justify-center mb-6 border border-red-500/20 group-hover:border-red-500/40 transition-colors">
+            <span class="text-4xl">🥊</span>
+          </div>
+          <h3 class="text-white font-semibold text-xl mb-3">Boxing</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+            The ring teaches <span class="text-white font-medium">resilience, pattern recognition</span>, and controlled aggression. Reading an opponent is like debugging — find the flaw, exploit it.
+          </p>
+          <div class="flex flex-wrap justify-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs">Resilience</span>
+            <span class="px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs">Discipline</span>
+            <span class="px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs">Grit</span>
+          </div>
+        </div>
+
+        <!-- Gyming -->
+        <div class="glass rounded-2xl p-8 glow-border card-hover reveal group text-center" style="transition-delay: 0.3s;">
+          <div class="hobby-icon w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-emerald-600/20 to-teal-600/10 flex items-center justify-center mb-6 border border-emerald-500/20 group-hover:border-emerald-500/40 transition-colors">
+            <span class="text-4xl">💪</span>
+          </div>
+          <h3 class="text-white font-semibold text-xl mb-3">Gyming</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+            Progressive overload isn't just for muscles — it's a <span class="text-white font-medium">developer's mindset</span>. Consistent effort, measurable progress, and showing up even when it's hard.
+          </p>
+          <div class="flex flex-wrap justify-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs">Consistency</span>
+            <span class="px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs">Growth</span>
+            <span class="px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs">Endurance</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connecting Philosophy -->
+      <div class="mt-16 text-center reveal">
+        <div class="glass rounded-2xl p-8 md:p-12 max-w-3xl mx-auto relative overflow-hidden">
+          <div class="absolute top-0 left-1/4 w-40 h-40 bg-indigo-500/5 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 right-1/4 w-40 h-40 bg-cyan-500/5 rounded-full blur-3xl"></div>
+          <div class="relative z-10">
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">The Common Thread</h3>
+            <p class="text-zinc-400 leading-relaxed max-w-2xl mx-auto">
+              Whether it's <span class="text-neon-indigo">writing algorithms</span>, 
+              <span class="text-red-400">throwing combos</span>, 
+              <span class="text-neon-emerald">hitting PRs</span>, or 
+              <span class="text-purple-400">clutching a 1v5</span> — 
+              the formula is the same: <span class="text-white font-semibold">relentless practice, strategic thinking, and the refusal to stay down.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT SECTION ==================== -->
+  <section id="contact" class="section-py relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <span class="text-neon-cyan font-mono text-sm tracking-widest uppercase">// Get in Touch</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-white mt-3">Let's <span class="shimmer-text">Connect</span></h2>
+        <p class="text-zinc-500 mt-4 max-w-lg mx-auto">Have a project idea, want to collaborate, or just want to chat about AI, code, or boxing? I'm all ears.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <!-- Contact Form -->
+        <div class="glass rounded-2xl p-8 glow-border reveal">
+          <form id="contact-form" class="space-y-6" novalidate>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2 font-medium">Name</label>
+              <input type="text" id="form-name" required placeholder="Your name"
+                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-neon-indigo/50 focus:ring-1 focus:ring-neon-indigo/30 transition-all duration-300 text-sm" />
+              <span class="form-error text-red-400 text-xs mt-1 hidden">Please enter your name</span>
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2 font-medium">Email</label>
+              <input type="email" id="form-email" required placeholder="you@example.com"
+                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-neon-indigo/50 focus:ring-1 focus:ring-neon-indigo/30 transition-all duration-300 text-sm" />
+              <span class="form-error text-red-400 text-xs mt-1 hidden">Please enter a valid email</span>
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-2 font-medium">Message</label>
+              <textarea id="form-message" required rows="5" placeholder="What's on your mind?"
+                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-neon-indigo/50 focus:ring-1 focus:ring-neon-indigo/30 transition-all duration-300 text-sm resize-none"></textarea>
+              <span class="form-error text-red-400 text-xs mt-1 hidden">Please enter a message</span>
+            </div>
+            <button type="submit" id="submit-btn"
+              class="btn-glow w-full py-3.5 rounded-xl bg-gradient-to-r from-neon-indigo to-neon-purple text-white font-semibold text-sm hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200 flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+              Send Message
+            </button>
+            <div id="form-success" class="hidden text-center py-4">
+              <div class="text-neon-emerald text-lg font-semibold mb-1">✅ Message Sent!</div>
+              <p class="text-zinc-500 text-sm">Thanks for reaching out. I'll get back to you soon.</p>
+            </div>
+          </form>
+        </div>
+
+        <!-- Social Links & Info -->
+        <div class="space-y-6 reveal" style="transition-delay: 0.15s;">
+          <div class="glass rounded-2xl p-6 glow-border card-hover">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
+                <svg class="w-6 h-6 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <div class="text-sm text-zinc-500">Email</div>
+                <a href="mailto:amogh@example.com" class="text-white hover:text-neon-indigo transition-colors">amogh@example.com</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass rounded-2xl p-6 glow-border card-hover">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
+                <svg class="w-6 h-6 text-zinc-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </div>
+              <div>
+                <div class="text-sm text-zinc-500">GitHub</div>
+                <a href="https://github.com" target="_blank" class="text-white hover:text-neon-indigo transition-colors">github.com/amoghbhardwaj</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass rounded-2xl p-6 glow-border card-hover">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
+                <svg class="w-6 h-6 text-zinc-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </div>
+              <div>
+                <div class="text-sm text-zinc-500">LinkedIn</div>
+                <a href="https://linkedin.com" target="_blank" class="text-white hover:text-neon-indigo transition-colors">linkedin.com/in/amoghbhardwaj</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass rounded-2xl p-6 glow-border card-hover">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
+                <svg class="w-6 h-6 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-sm text-zinc-500">Location</div>
+                <span class="text-white">Sonipat, Haryana, India</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="py-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-md bg-gradient-to-br from-neon-indigo to-neon-cyan flex items-center justify-center text-white font-bold text-xs">AB</div>
+          <span class="text-zinc-500 text-sm">© 2025 Amogh Bhardwaj. All rights reserved.</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="https://github.com" target="_blank" class="text-zinc-500 hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="text-zinc-500 hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="mailto:amogh@example.com" class="text-zinc-500 hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </a>
+        </div>
+        <div class="text-zinc-600 text-xs font-mono">
+          Built with 💜 & Tailwind CSS
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // ============ MOUSE GLOW EFFECT ============
+    const mouseGlow = document.getElementById('mouse-glow');
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      mouseGlow.style.left = mouseX + 'px';
+      mouseGlow.style.top = mouseY + 'px';
+    });
+
+    // ============ TYPEWRITER EFFECT ============
+    const typewriterEl = document.getElementById('typewriter');
+    const phrases = [
+      'AI & ML Enthusiast 🧠',
+      'Full-Stack Developer 💻',
+      'Gamer & Strategist 🎮',
+      'Boxer & Athlete 🥊',
+      'Lifelong Learner 🚀'
+    ];
+    let phraseIndex = 0, charIndex = 0, isDeleting = false;
+
+    function typewrite() {
+      const currentPhrase = phrases[phraseIndex];
+      if (isDeleting) {
+        typewriterEl.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typewriterEl.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let speed = isDeleting ? 40 : 80;
+
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        speed = 2000; // Pause at end
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        speed = 400;
+      }
+
+      setTimeout(typewrite, speed);
+    }
+    typewrite();
+
+    // ============ NAVBAR SCROLL EFFECT ============
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > 80) {
+        navbar.classList.add('glass-strong');
+        navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+      } else {
+        navbar.classList.remove('glass-strong');
+        navbar.style.borderBottom = 'none';
+      }
+      lastScroll = currentScroll;
+    });
+
+    // ============ MOBILE MENU ============
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('open');
+      if (mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px') {
+        mobileMenu.style.maxHeight = '0px';
+      } else {
+        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+      }
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('open');
+        mobileMenu.style.maxHeight = '0px';
+      });
+    });
+
+    // ============ SCROLL-TRIGGERED ANIMATIONS (Intersection Observer) ============
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-scale');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          // Animate progress bars inside
+          entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+            setTimeout(() => {
+              bar.style.width = bar.dataset.width;
+            }, 300);
+          });
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ============ ACTIVE NAV LINK HIGHLIGHT ============
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (window.scrollY >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // ============ SKILL FILTER TABS ============
+    const filterBtns = document.querySelectorAll('.skill-filter');
+    const skillCards = document.querySelectorAll('.skill-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button style
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-neon-indigo/20', 'text-neon-indigo', 'border', 'border-neon-indigo/30');
+          b.classList.add('glass', 'text-zinc-400');
+        });
+        btn.classList.add('bg-neon-indigo/20', 'text-neon-indigo', 'border', 'border-neon-indigo/30');
+        btn.classList.remove('glass', 'text-zinc-400');
+
+        const filter = btn.dataset.filter;
+        skillCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 50);
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // ============ CONTACT FORM VALIDATION ============
+    const contactForm = document.getElementById('contact-form');
+    const formName = document.getElementById('form-name');
+    const formEmail = document.getElementById('form-email');
+    const formMessage = document.getElementById('form-message');
+    const formSuccess = document.getElementById('form-success');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Real-time validation styling
+    [formName, formEmail, formMessage].forEach(field => {
+      field.addEventListener('input', () => {
+        const errorSpan = field.nextElementSibling;
+        if (field.validity.valid && field.value.trim()) {
+          field.classList.remove('border-red-500/50');
+          field.classList.add('border-emerald-500/50');
+          if (errorSpan && errorSpan.classList.contains('form-error')) errorSpan.classList.add('hidden');
+        } else {
+          field.classList.remove('border-emerald-500/50');
+        }
+      });
+
+      field.addEventListener('blur', () => {
+        if (!field.value.trim()) {
+          field.classList.remove('border-emerald-500/50');
+          field.classList.add('border-white/10');
+        }
+      });
+    });
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      // Validate Name
+      const nameError = formName.nextElementSibling;
+      if (!formName.value.trim()) {
+        formName.classList.add('border-red-500/50');
+        nameError.classList.remove('hidden');
+        valid = false;
+      } else {
+        nameError.classList.add('hidden');
+      }
+
+      // Validate Email
+      const emailError = formEmail.nextElementSibling;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formEmail.value)) {
+        formEmail.classList.add('border-red-500/50');
+        emailError.classList.remove('hidden');
+        valid = false;
+      } else {
+        emailError.classList.add('hidden');
+      }
+
+      // Validate Message
+      const msgError = formMessage.nextElementSibling;
+      if (!formMessage.value.trim()) {
+        formMessage.classList.add('border-red-500/50');
+        msgError.classList.remove('hidden');
+        valid = false;
+      } else {
+        msgError.classList.add('hidden');
+      }
+
+      if (valid) {
+        // Simulate sending
+        submitBtn.innerHTML = `
+          <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+          Sending...
+        `;
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          contactForm.style.display = 'none';
+          formSuccess.classList.remove('hidden');
+        }, 1500);
+      }
+    });
+
+    // ============ SMOOTH SCROLL FOR ALL ANCHOR LINKS ============
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ============ PARTICLES IN HERO (subtle floating dots) ============
+    const hero = document.getElementById('hero');
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      const size = Math.random() * 3 + 1;
+      const colors = ['rgba(99,102,241,0.4)', 'rgba(34,211,238,0.3)', 'rgba(16,185,129,0.3)'];
+      particle.style.cssText = `
+        position: absolute;
+        width: ${size}px; height: ${size}px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        border-radius: 50%;
+        top: ${Math.random() * 100}%;
+        left: ${Math.random() * 100}%;
+        animation: particle-float ${6 + Math.random() * 8}s ease-in-out infinite;
+        animation-delay: ${Math.random() * 5}s;
+        pointer-events: none;
+      `;
+      hero.appendChild(particle);
+    }
+
+  });
+  </script>
+
+</body>
+</html>
+
